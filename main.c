@@ -1,49 +1,36 @@
 #include "shell.h"
 
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <stdarg.h>
-
-int main(int argc, char *argv[])
+int main(int argc __attribute__((unused)), char *argv[])
 {
     char *line = NULL;
-    char **com = NULL;
-    int stts = 0, commandindex = 0;
-    char newline = '\n';
-    char error_message[] = ": command not found\n";
-    (void)argc;
+    char **command = NULL;
+    int status = 0;
 
     while (1)
     {
-        line = readLine();
+        if (isatty(STDIN_FILENO))
+        {
+            write(STDIN_FILENO, "$ ", 2);
+        }
+
+        line = read_line();
         if (line == NULL)
         {
-            if (isatty(STDOUT_FILENO))
+            if (isatty(STDIN_FILENO))
             {
-                write(STDOUT_FILENO, &newline, 1);
+                write(STDOUT_FILENO, "\n", 1);
             }
-            return (stts);
-        }
-        commandindex++;
-        com = parser(line);
-        if (com == NULL)
-        {
-            continue;
-        }
-        if (check_builtin(com[0]))
-        {
-            handle_builtin(com, argv, &stts, commandindex);
+            return (status);
         }
         else
         {
-            write(STDERR_FILENO, com[0], strlen(com[0]));
-            write(STDERR_FILENO, error_message, strlen(error_message));
-            stts = 127;
+            command = tokens(line);
+            status = my_execute(command, argv, status);
+            if (command == NULL)
+            {
+                free(line);
+                free(command);
+            }
         }
     }
     return (0);
