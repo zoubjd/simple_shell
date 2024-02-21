@@ -8,13 +8,13 @@ char *read_line(void)
 
     if (isatty(STDIN_FILENO))
     {
-        write(STDOUT_FILENO, "$ ", 2);
+    write(STDOUT_FILENO, "$ ", 2);
     }
     n = getline(&line, &len, stdin);
     if (n < 0)
     {
-        free(line);
-        return (NULL);
+    free(line);
+    return (NULL);
     }
     return (line);
 }

@@ -5,7 +5,7 @@ char **tokens(char *line)
     char *token = NULL, *delim = " \t\n";
     char **command = NULL, *ptr = line;
     int num_tokens = 1;
-    int i = 0, j;
+    int i = 0;
 
     if (line == NULL)
     {
