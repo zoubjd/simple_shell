@@ -1,7 +1,15 @@
 #include "shell.h"
 
-int my_execute(char **command, __attribute__ ((unused)) char **argv,
-__attribute__ ((unused)) int idex)
+/**
+ * my_execute - check the code
+ * description: the function executes the commands
+ * @command: the command to be executed
+ * @argv: the command line arguments
+ * @dex: the status
+ * Return: Always 0.
+ */
+
+int my_execute(char **command, char **argv, __attribute__ ((unused)) int dex)
 {
 	pid_t child_pid;
 	int status;
@@ -21,7 +29,7 @@ __attribute__ ((unused)) int idex)
 	else if (child_pid == 0)
 	{
 	execve(command[0], command, NULL);
-	perror("execve");
+	perror(argv[0]);
 	_exit(EXIT_FAILURE);
 	}
 	else

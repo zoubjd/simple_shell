@@ -45,10 +45,24 @@ char **tokens(char *line)
 
     for (i = 1; i < num_tokens; i++)
     {
-        command[i] = NULL; /* initialize all other tokens to NULL*/
+        token = strtok(NULL, delim);
+        if(token != NULL)
+        {
+        command[i] = _strdup(token);
+        if (command[0] == NULL)
+        {
+        free(line);
+        free(command);
+        return (NULL);
+        }
+        }
+        else
+        {
+        command[i] = NULL; /* initialize token to NULL*/
+        } 
     }
     command[num_tokens] = NULL;
 
     free(line);
-    return command;
+    return (command);
 }
