@@ -47,9 +47,13 @@ char **tokens(char *line)
 		if (token != NULL)
 		{
 			command[i] = _strdup(token);
-			if (command[0] == NULL)
+			if (command[i] == NULL)
 			{
 				free(line);
+				for (int j = 0; j < i; j++)
+				{
+					free(command[j]);
+				}
 				free(command);
 				return (NULL);
 			}
