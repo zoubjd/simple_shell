@@ -12,10 +12,13 @@
 #include <fcntl.h>
 #include <errno.h>
 
+extern char **environ;
+
 
 char *read_line(void);
 
 char **tokens(char *line);
+char **copytokens(int num_tokens, char **command, char *delim);
 
 char *_strdup(const char *str);
 char _strcmp(const char *str1, const char *str2);
