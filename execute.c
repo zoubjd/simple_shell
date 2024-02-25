@@ -31,12 +31,11 @@ int my_execute(char **command, char **argv, __attribute__ ((unused)) int dex)
 	{
 		execve(command[0], command, env);
 		perror(argv[0]);
-		free(command);
+		executefree(command);
 		_exit(EXIT_FAILURE);
 	}
-	else
-	{
-		waitpid(child_pid, &status, 0);
-		return (WEXITSTATUS(status));
-	}
+	waitpid(child_pid, &status, 0);
+
+	executefree(command);
+	return (WEXITSTATUS(status));
 }

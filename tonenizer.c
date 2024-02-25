@@ -7,7 +7,7 @@
 char **tokens(char *line)
 {
 	char *token = NULL, *delim = " \t\n", **command = NULL, *ptr = line;
-	int i = 0, num_tokens = 1;
+	int i = 0, j, num_tokens = 1;
 
 	if (line == NULL)
 		return (NULL);
@@ -15,7 +15,9 @@ char **tokens(char *line)
 	while (*ptr != '\0')
 	{
 		if (strchr(delim, *ptr) != NULL)
+		{
 			num_tokens++;
+		}
 		ptr++;
 	}
 
@@ -36,8 +38,8 @@ char **tokens(char *line)
 	command[0] = _strdup(token);
 	if (command[0] == NULL)
 	{
-		free(line);
 		free(command);
+		free(line);
 		return (NULL);
 	}
 
@@ -50,7 +52,7 @@ char **tokens(char *line)
 			if (command[i] == NULL)
 			{
 				free(line);
-				for (int j = 0; j < i; j++)
+				for (j = 0; j < i; j++)
 				{
 					free(command[j]);
 				}
