@@ -11,7 +11,6 @@ char *read_line(void)
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t n;
-	int cmp = 0;
 
 	if (isatty(STDIN_FILENO))
 	{
@@ -21,14 +20,10 @@ char *read_line(void)
 	if (n < 0)
 	{
 		free(line);
+		line = NULL;
 		return (NULL);
 	}
 
-	cmp = strcmp(line, "exit\n");
-	if (cmp == 0)
-	{
-		free(line);
-		exit(0);
-	}
+	
 	return (line);
 }
