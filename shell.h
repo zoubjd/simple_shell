@@ -26,6 +26,14 @@ int _strlen(const char *s);
 char *_strcat(char *d, const char *src);
 char *_strcpy(char *d, const char *src);
 
-int my_execute(char **command, char **argv, int idex);
+/*path*/
+char *make_env(char *path);
+char *make_path(char *path);
+
+/*error*/
+void print_error(char *name, char *command, int index);
+void reverse_string(char *buf, int len);
+char* _itoa(int n);
+int my_execute(char **command, char **argv, int dex);
 
 #endif

@@ -9,33 +9,45 @@
  * Return: Always 0.
  */
 
-int my_execute(char **command, char **argv, __attribute__ ((unused)) int dex)
+int my_execute(char **command, char **argv, int dex)
 {
 	pid_t child_pid;
 	int status;
 	char **env = environ;
+	char *fullcmd;
 
 	if (command == NULL || command[0] == NULL)
 	{
 		return (0);
+		free(fullcmd);
+		fullcmd = NULL;
+		executefree(command);
 	}
-
+	fullcmd = make_path(command[0]);
+	if (fullcmd == NULL)
+	{
+		print_error(argv[0], command[0], dex);
+		executefree(command);
+		return (127);
+	}
 	child_pid = fork();
-
 	if (child_pid == -1)
 	{
-		perror("fork");
 		return (-1);
 	}
 	else if (child_pid == 0)
 	{
-		execve(command[0], command, env);
-		perror(argv[0]);
-		executefree(command);
-		_exit(EXIT_FAILURE);
+		if (execve(fullcmd, command, env) == -1)
+		{
+			free(fullcmd);
+			fullcmd = NULL;
+			executefree(command);
+			_exit(EXIT_FAILURE);
+		}
 	}
 	waitpid(child_pid, &status, 0);
-
 	executefree(command);
+	free(fullcmd);
+	fullcmd = NULL;
 	return (WEXITSTATUS(status));
 }
