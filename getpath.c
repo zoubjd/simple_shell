@@ -1,9 +1,13 @@
 #include "shell.h"
-
+/**
+ * make_env - make a shell environment 
+ * @path: path to search
+ * Return: NULL.
+ */
 char *make_env(char *path)
 {
     char *env, *key, *value, *retvalue;
-int i = 0;
+    int i = 0;
 
 while (environ[i] != NULL)
 {
@@ -21,7 +25,11 @@ while (environ[i] != NULL)
 }
 return (NULL);
 }
-
+/**
+ * make_path - make a path for a command line argument
+ * @command: command line argument.
+ * Return: return full path or NULL if not found
+ */
 char *make_path(char *command)
 {
     char *path, *fullcmd, *dir;

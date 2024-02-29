@@ -1,12 +1,11 @@
 #include "shell.h"
 /**
- * my_execute - check the code
- * description: the function executes the commands
+ * my_execute - execute a command and return the exit status
  * @command: the command to be executed
- * @argv: the command line arguments
- * @dex: the status
- * Return: Always 0.
- */
+ * @argv: the arguments of the command
+ * @dex: the index of the command in the array
+ * Return: the exit status of the command
+*/
 int my_execute(char **command, char **argv, int dex)
 {
 	pid_t child_pid;
@@ -44,38 +43,52 @@ int my_execute(char **command, char **argv, int dex)
 	}
 	return (WEXITSTATUS(status));
 }
-
+/**
+ * handle_commands - handle the commands of the shell
+ * @command: the command to be executed
+ * @status: the status of the command
+ * Return: Always 0.
+*/
 int handle_commands(char **command, int status)
 {
-    int result = 0;
+	int result = 0;
 
-    switch (_strcmp(command[0], "exit"))
+	switch (_strcmp(command[0], "exit"))
 	{
-        case 0:
-            exit_shell(command, status);
-            result = 1;
-            break;
-        default:
-            switch (_strcmp(command[0], "env"))
+		case 0:
+			exit_shell(command, status);
+			result = 1;
+			break;
+		default:
+			switch (_strcmp(command[0], "env"))
 			{
-                case 0:
-                    _print_env(command);
-                    result = 1;
-                    break;
-                default:
-                    break;
+				case 0:
+					_print_env(command);
+					result = 1;
+					break;
+				default:
+					break;
             }
-            break;
-    }
-    return (result);
+			break;
+	}
+	return (result);
 }
 
+/**
+ * exit_shell - exit the shell program
+ * @command: the command to be executed
+ * @status: the status of the command
+ * Return: Always 0.
+*/
 int exit_shell(char **command ,int status)
 {
 	executefree(command);
 	exit(status);
 }
-
+/**
+ * _print_env - print the environment variables to stdout
+ * @command: the command to be executed.
+*/
 void _print_env(char **command)
 {
 	int i = 0;
