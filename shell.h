@@ -26,9 +26,15 @@ int _strlen(const char *s);
 char *_strcat(char *d, const char *src);
 char *_strcpy(char *d, const char *src);
 
+int builtin_commands(char *command);
+int handle_commands(char **command, int status);
+
+int exit_shell(char **command ,int status);
+void _print_env(char **command);
+
 /*path*/
 char *make_env(char *path);
-char *make_path(char *path);
+char *make_path(char *command);
 
 /*error*/
 void print_error(char *name, char *command, int index);

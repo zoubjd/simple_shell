@@ -2,75 +2,65 @@
 
 char *make_env(char *path)
 {
-    char *p, *value, *last, *key;
-    int i = 0;
+    char *env, *key, *value, *retvalue;
+int i = 0;
 
-    while (environ[i] != NULL)
-    {
-        p = _strdup(environ[i]);
-        last = strtok(p, "=");
-        if (_strcmp(last, path) == 0)
-        {
-            value = strtok(NULL, "\n");
-            key = _strdup(value);
-            free(p);
-            return (key);
-        }
-        free(p);
-        i++;
-    }
-    return (NULL);
-}
-
-char *make_path(char *path)
+while (environ[i] != NULL)
 {
-    char *pe = make_env("PATH"), *fullcmd = NULL, *storage;
-    int i = 0;
-    struct stat st;
-
-    if (pe == NULL)
-	    return (NULL);
-
-    while (path[i] != '\0')
+    env = _strdup(environ[i]);
+    key = strtok(env, "=");
+    if(_strcmp(key, path) == 0)
     {
-    if (path[i] == '/')
-    {
-    if (stat(path, &st) == 0)
-    {
-    free(pe);
-    return (_strdup(path));
-    }
-    else
-    {
-	free(pe);
-        return (NULL);
-    }
+        value = strtok(NULL, "\n");
+        retvalue = _strdup(value);
+        free(env);
+        return (retvalue);
     }
     i++;
-    }
-
-    storage = strtok(pe, ":");
-    while (storage != NULL)
-    {
-        fullcmd = malloc(_strlen(path) + _strlen(storage) + 2);
-        if (fullcmd != NULL)
-        {
-            _strcpy(fullcmd, storage);
-            _strcat(fullcmd, "/");
-            _strcat(fullcmd, path);
-            if (stat(fullcmd, &st) == 0)
-            {
-		free(pe);
-                return (fullcmd);
-            }
-            else
-            {
-                free(fullcmd);
-            }
-            storage = strtok(NULL, ":");
-        }
-    }
-    free(pe);
-    return (NULL);
+    free(env);
+}
+return (NULL);
 }
 
+char *make_path(char *command)
+{
+    char *path, *fullcmd, *dir;
+    struct stat st;
+    int i = 0;
+
+    while (command[i] != '\0')
+    {
+        if (command[i] == '/')
+        {
+            if (stat(command, &st) == 0)
+                return (_strdup(command));
+            else
+                return (NULL);
+        }
+        i++;
+    }
+    path = make_env("PATH");
+    if(path == NULL)
+        return (NULL);
+
+    dir = strtok(path, ":");
+    while (dir)
+    {
+        fullcmd = malloc(_strlen(command) + _strlen(path) + 2);
+        if (fullcmd)
+        {
+            _strcpy(fullcmd, dir);
+            _strcat(fullcmd, "/");
+            _strcat(fullcmd, command);
+            if (stat(fullcmd, &st) == 0)
+            {
+                free(path);
+                return(fullcmd);
+            }
+            free(fullcmd);
+            dir = strtok(NULL, ":");
+        }
+    }
+    free(path);
+    return (NULL);
+}

@@ -21,7 +21,7 @@ void executefree(char **arg)
 
 char* _itoa(int n)
 {
-	char buf[20];
+	char buf[15];
 	int i = 0;
 
 	if (n == 0)
@@ -70,4 +70,3 @@ void print_error(char *name, char *command, int index)
 
 	free(i);
 }
-
