@@ -41,7 +41,7 @@ void print_error(char *name, char *command, int index);
 void reverse_string(char *buf, int len);
 char* _itoa(int n);
 int _atoi(char *src);
-void error_exit(char *name, char **command, int index);
+int error_exit(char *name, char **command, int index);
 int my_execute(char **command, char **argv, int dex);
 
 #endif

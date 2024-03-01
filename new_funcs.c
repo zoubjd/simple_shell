@@ -39,7 +39,7 @@ return (sign *result);
  * @index: the number of the current line
 */
 
-void error_exit(char *name, char **command, int index)
+int error_exit(char *name, char **command, int index)
 {
 char *i = _itoa(index), message[] = ": Illegal number: ";
 
