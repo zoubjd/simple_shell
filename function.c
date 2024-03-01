@@ -23,7 +23,7 @@ void executefree(char **arg)
  * @n: The integer to convert.
  * Return: A pointer to a new string.
 */
-char* _itoa(int n)
+char *_itoa(int n)
 {
 	char buf[15];
 	int i = 0;
@@ -41,7 +41,7 @@ char* _itoa(int n)
 		}
 	}
 	buf[i] = '\0';
-	
+
 	reverse_string(buf, i);
 	return (_strdup(buf));
 }

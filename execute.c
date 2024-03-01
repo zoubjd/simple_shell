@@ -12,7 +12,7 @@ int my_execute(char **command, char **argv, int dex)
 	int status;
 	char **env = environ;
 	char *fullcmd;
-	
+
 	if (command == NULL || command[0] == NULL)
 	{
 		return (0);
@@ -47,6 +47,8 @@ int my_execute(char **command, char **argv, int dex)
  * handle_commands - handle the commands of the shell
  * @command: the command to be executed
  * @status: the status of the command
+ * @argv: the arguments to be passed to the command
+ * @index: the index of the command
  * Return: Always 0.
 */
 int handle_commands(char **command, int status, char **argv, int index)
@@ -60,7 +62,7 @@ int handle_commands(char **command, int status, char **argv, int index)
 			if (command[1])
 			{
 			new_status = _atoi(command[1]);
-			if(new_status < 0)
+			if (new_status < 0)
 			{
 			error_exit(argv[0], command, index);
 			}
@@ -81,7 +83,7 @@ int handle_commands(char **command, int status, char **argv, int index)
 					break;
 				default:
 					break;
-            }
+			}
 			break;
 	}
 	return (result);
@@ -93,7 +95,7 @@ int handle_commands(char **command, int status, char **argv, int index)
  * @status: the status of the command
  * Return: Always 0.
 */
-int exit_shell(char **command ,int status)
+int exit_shell(char **command, int status)
 {
 	executefree(command);
 	exit(status);
