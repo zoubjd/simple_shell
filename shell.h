@@ -27,7 +27,7 @@ char *_strcat(char *d, const char *src);
 char *_strcpy(char *d, const char *src);
 
 int builtin_commands(char *command);
-int handle_commands(char **command, int status);
+int handle_commands(char **command, int status, char **argv, int index);
 
 int exit_shell(char **command ,int status);
 void _print_env(char **command);
@@ -40,6 +40,8 @@ char *make_path(char *command);
 void print_error(char *name, char *command, int index);
 void reverse_string(char *buf, int len);
 char* _itoa(int n);
+int _atoi(char *src);
+void error_exit(char *name, char **command, int index);
 int my_execute(char **command, char **argv, int dex);
 
 #endif

@@ -32,7 +32,7 @@ int main(int argc __attribute__((unused)), char *argv[])
 				continue;
 			}
 		}
-		if(handle_commands(command, status));
+		if(handle_commands(command, status, argv, index));
 		else
 			status = my_execute(command, argv, index);
 	}

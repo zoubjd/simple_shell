@@ -49,13 +49,26 @@ int my_execute(char **command, char **argv, int dex)
  * @status: the status of the command
  * Return: Always 0.
 */
-int handle_commands(char **command, int status)
+int handle_commands(char **command, int status, char **argv, int index)
 {
 	int result = 0;
+	int new_status = 0;
 
 	switch (_strcmp(command[0], "exit"))
 	{
 		case 0:
+			if (command[1])
+			{
+			new_status = _atoi(command[1]);
+			if(new_status < 0)
+			{
+			error_exit(argv[0], command, index);
+			}
+			else
+			{
+			exit_shell(command, new_status);
+			}
+			}
 			exit_shell(command, status);
 			result = 1;
 			break;
@@ -101,3 +114,4 @@ void _print_env(char **command)
 	}
 	executefree(command);
 }
+
