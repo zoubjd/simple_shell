@@ -52,5 +52,6 @@ write(STDERR_FILENO, message, _strlen(message));
 write(STDERR_FILENO, command[1], _strlen(command[1]));
 write(1, "\n", 1);
 free(i);
+exit(2);
 }
 
