@@ -50,7 +50,7 @@ write(STDERR_FILENO, ": ", 2);
 write(STDERR_FILENO, command[0], _strlen(command[0]));
 write(STDERR_FILENO, message, _strlen(message));
 write(STDERR_FILENO, command[1], _strlen(command[1]));
-write(1, "\n", 1);
+write(STDERR_FILENO, "\n", 1);
 free(i);
 executefree(command);
 exit(2);
