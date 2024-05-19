@@ -20,3 +20,6 @@ This shell is a basic implementation that provides a command-line interface for 
 ## Usage
 
 To compile the shell, use the provided Makefile:
+
+* this is me
+
